@@ -1,0 +1,920 @@
+
+2026-05-07 10:59:54,042 | INFO | app.main | Application startup initiated
+2026-05-07 10:59:54,043 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 10:59:54,046 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:00:05,110 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:00:05,110 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:00:05,110 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:00:05,125 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:00:05,125 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:00:05,125 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:00:05,137 | INFO | app.main | Application startup completed
+2026-05-07 11:05:19,661 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:19,672 | INFO | app.services.cache_manager | No persistent cache found for USD_INR
+2026-05-07 11:05:19,722 | INFO | app.services.cache_manager | Refreshing forex cache for USD_INR
+2026-05-07 11:05:19,723 | INFO | app.services.data_fetcher | Downloading forex data from Yahoo Finance: ticker=INR=X
+2026-05-07 11:05:27,472 | INFO | app.services.data_fetcher | Downloaded 1300 rows for INR=X through 2026-05-07
+2026-05-07 11:05:27,477 | INFO | app.services.preprocessor | Preprocessing forex dataset with 1300 rows
+2026-05-07 11:05:27,496 | INFO | app.services.preprocessor | Preprocessing completed with 1300 valid rows
+2026-05-07 11:05:27,501 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:05:27,661 | INFO | app.services.feature_engineering | Feature engineering completed with 1300 rows
+2026-05-07 11:05:27,668 | INFO | app.services.cache_manager | Persistent cache saved for USD_INR
+2026-05-07 11:05:27,668 | INFO | app.services.cache_manager | Cache refreshed for USD_INR with 1300 rows
+2026-05-07 11:05:27,678 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:27,680 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:27,694 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:32,450 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:32,468 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:32,484 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:32,497 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:32,499 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:33,290 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:33,292 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:33,295 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:33,305 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:33,312 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:34,254 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:34,256 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:34,261 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:34,271 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:34,277 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:35,003 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:35,007 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:35,012 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:35,024 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:35,026 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:35,711 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:35,712 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:35,716 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:35,730 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:35,732 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:05:36,424 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:05:36,426 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:05:36,430 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:05:36,448 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:05:36,452 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:06:26,820 | INFO | app.main | Application startup initiated
+2026-05-07 11:06:26,820 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:06:26,822 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:06:28,017 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:06:28,017 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:06:28,017 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:06:28,021 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:06:28,021 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:06:28,021 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:06:28,021 | INFO | app.main | Application startup completed
+2026-05-07 11:06:28,021 | INFO | httpx | HTTP Request: GET http://testserver/docs "HTTP/1.1 200 OK"
+2026-05-07 11:06:28,021 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:06:28,021 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:06:28,021 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:06:28,026 | INFO | app.main | Application shutdown completed
+2026-05-07 11:06:33,714 | INFO | app.main | Application startup initiated
+2026-05-07 11:06:33,714 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:06:33,716 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:06:34,838 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:06:34,840 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:06:34,840 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:06:34,843 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:06:34,843 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:06:34,844 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:06:34,844 | INFO | app.main | Application startup completed
+2026-05-07 11:06:34,848 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:06:34,867 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:06:34,871 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:06:34,871 | ERROR | app.services.predictor | XGBoost prediction failed
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+2026-05-07 11:06:34,871 | ERROR | app.api.routes | Prediction failed: XGBoost prediction failed: XGBoost model has no predict method
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 151, in _predict_one
+    raise AttributeError("XGBoost model has no predict method")
+AttributeError: XGBoost model has no predict method
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 73, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 100, in _forecast_xgboost
+    prediction = self._predict_one(self.xgboost_model, matrix)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 154, in _predict_one
+    raise PredictionError(f"XGBoost prediction failed: {exc}", status_code=500) from exc
+app.services.predictor.PredictionError: XGBoost prediction failed: XGBoost model has no predict method
+2026-05-07 11:06:34,876 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 500 Internal Server Error"
+2026-05-07 11:06:34,876 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:06:34,876 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:06:34,877 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:06:34,877 | INFO | app.main | Application shutdown completed
+2026-05-07 11:07:00,015 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:07:00,025 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:07:00,032 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:07:00,060 | INFO | app.main | Application shutdown completed
+2026-05-07 11:07:02,901 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:02,903 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:02,905 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:04,356 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:04,356 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:07,338 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:07,341 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:07,341 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:08,789 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:08,789 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:13,942 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:13,942 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:13,946 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:15,742 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:15,746 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:15,753 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:07:15,755 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:07:15,758 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:07:15,769 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:07:15,772 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:07:15,772 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:07:15,785 | INFO | app.main | Application startup completed
+2026-05-07 11:07:17,683 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:17,686 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:17,686 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:18,974 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:18,976 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:18,976 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:07:18,976 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:07:18,976 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:07:18,981 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:07:18,982 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:07:18,982 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:07:18,984 | INFO | app.main | Application startup completed
+2026-05-07 11:07:18,989 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:07:18,992 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:07:18,997 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:07:19,014 | ERROR | app.api.routes | Prediction failed: XGBoost returned an invalid forecast
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 68, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 86, in predict
+    xgb_value = self._forecast_xgboost(frame.copy(), days_ahead)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 115, in _forecast_xgboost
+    raise PredictionError("XGBoost returned an invalid forecast", status_code=500)
+app.services.predictor.PredictionError: XGBoost returned an invalid forecast
+2026-05-07 11:07:19,016 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 500 Internal Server Error"
+2026-05-07 11:07:19,018 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:07:19,018 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:07:19,018 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:07:19,018 | INFO | app.main | Application shutdown completed
+2026-05-07 11:07:36,328 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:07:36,328 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:07:36,329 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:07:36,329 | INFO | app.main | Application shutdown completed
+2026-05-07 11:07:38,318 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:38,318 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:38,323 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:40,431 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:40,431 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:40,433 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:07:40,434 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:07:40,436 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:07:40,443 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:07:40,445 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:07:40,445 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:07:40,447 | INFO | app.main | Application startup completed
+2026-05-07 11:07:41,859 | INFO | app.main | Application startup initiated
+2026-05-07 11:07:41,859 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:07:41,859 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:07:43,161 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:07:43,161 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:07:43,161 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:07:43,161 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:07:43,161 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:07:43,166 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:07:43,166 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:07:43,166 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:07:43,168 | INFO | app.main | Application startup completed
+2026-05-07 11:07:43,170 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:07:43,172 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:07:43,179 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:07:43,191 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,227 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:07:43,245 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,288 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:07:43,309 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,354 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:07:43,399 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4317, in append
+    _check_index(append_ix, endog, '`endog`')
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 80, in _check_index
+    raise ValueError('Given %s does not have an index'
+ValueError: Given `endog` does not have an index that extends the index of the model.
+2026-05-07 11:07:43,450 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,485 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:07:43,491 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4317, in append
+    _check_index(append_ix, endog, '`endog`')
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 80, in _check_index
+    raise ValueError('Given %s does not have an index'
+ValueError: Given `endog` does not have an index that extends the index of the model.
+2026-05-07 11:07:43,493 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,518 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:07:43,523 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4317, in append
+    _check_index(append_ix, endog, '`endog`')
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 80, in _check_index
+    raise ValueError('Given %s does not have an index'
+ValueError: Given `endog` does not have an index that extends the index of the model.
+2026-05-07 11:07:43,523 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:07:43,551 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:07:43,551 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:07:43,563 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 200 OK"
+2026-05-07 11:07:43,563 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:07:43,565 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:07:43,565 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:07:43,565 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:01,143 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:01,143 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:01,145 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:01,145 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:03,156 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:03,156 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:03,160 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:04,678 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:04,681 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:04,681 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:04,681 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:04,681 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:04,686 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:04,688 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:04,689 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:04,694 | INFO | app.main | Application startup completed
+2026-05-07 11:08:05,441 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:05,441 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:05,442 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:06,655 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:06,655 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:06,655 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:06,655 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:06,655 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:06,660 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:06,660 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:06,660 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:06,661 | INFO | app.main | Application startup completed
+2026-05-07 11:08:06,664 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:08:06,666 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:08:06,670 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:08:06,678 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,714 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:06,730 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,768 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:06,785 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,824 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:06,833 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4320, in append
+    new_endog = concat([self.model.data.orig_endog, endog], axis=0,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\tools.py", line 361, in concat
+    raise ValueError('Columns must match to concatenate along'
+ValueError: Columns must match to concatenate along rows.
+2026-05-07 11:08:06,855 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,892 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:06,897 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4320, in append
+    new_endog = concat([self.model.data.orig_endog, endog], axis=0,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\tools.py", line 361, in concat
+    raise ValueError('Columns must match to concatenate along'
+ValueError: Columns must match to concatenate along rows.
+2026-05-07 11:08:06,897 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,921 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:06,927 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 162, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4320, in append
+    new_endog = concat([self.model.data.orig_endog, endog], axis=0,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\tools.py", line 361, in concat
+    raise ValueError('Columns must match to concatenate along'
+ValueError: Columns must match to concatenate along rows.
+2026-05-07 11:08:06,927 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:06,970 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:06,970 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:08:06,970 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 200 OK"
+2026-05-07 11:08:06,981 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:06,981 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:06,981 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:06,982 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:20,197 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:20,197 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:20,197 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:20,197 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:22,333 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:22,334 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:22,336 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:23,781 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:23,781 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:23,782 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:23,782 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:23,782 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:23,787 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:23,787 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:23,789 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:23,791 | INFO | app.main | Application startup completed
+2026-05-07 11:08:24,208 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:24,208 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:24,211 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:25,392 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:25,392 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:25,394 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:25,394 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:25,394 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:25,398 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:25,398 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:25,400 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:25,400 | INFO | app.main | Application startup completed
+2026-05-07 11:08:25,403 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:08:25,404 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:08:25,409 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:08:25,413 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,462 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:25,484 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,521 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:25,539 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,577 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:25,592 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 163, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4355, in append
+    mod = self.model.clone(new_endog, exog=new_exog, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 813, in clone
+    return self._clone_from_init_kwds(endog, exog=exog, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 296, in _clone_from_init_kwds
+    mod = self.__class__(endog, **use_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 328, in __init__
+    self._spec = SARIMAXSpecification(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\arima\specification.py", line 446, in __init__
+    self._model = TimeSeriesModel(endog, exog=exog, dates=dates, freq=freq,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\base\tsa_model.py", line 470, in __init__
+    super().__init__(endog, exog, missing=missing, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 270, in __init__
+    super().__init__(endog, exog, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 95, in __init__
+    self.data = self._handle_data(endog, exog, missing, hasconst,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 135, in _handle_data
+    data = handle_data(endog, exog, missing, hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 694, in handle_data
+    return klass(endog, exog=exog, missing=missing, hasconst=hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 90, in __init__
+    self._handle_constant(hasconst)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 139, in _handle_constant
+    raise MissingDataError("exog contains inf or nans")
+statsmodels.tools.sm_exceptions.MissingDataError: exog contains inf or nans
+2026-05-07 11:08:25,663 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,688 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:25,712 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 163, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4355, in append
+    mod = self.model.clone(new_endog, exog=new_exog, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 813, in clone
+    return self._clone_from_init_kwds(endog, exog=exog, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 296, in _clone_from_init_kwds
+    mod = self.__class__(endog, **use_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 328, in __init__
+    self._spec = SARIMAXSpecification(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\arima\specification.py", line 446, in __init__
+    self._model = TimeSeriesModel(endog, exog=exog, dates=dates, freq=freq,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\base\tsa_model.py", line 470, in __init__
+    super().__init__(endog, exog, missing=missing, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 270, in __init__
+    super().__init__(endog, exog, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 95, in __init__
+    self.data = self._handle_data(endog, exog, missing, hasconst,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 135, in _handle_data
+    data = handle_data(endog, exog, missing, hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 694, in handle_data
+    return klass(endog, exog=exog, missing=missing, hasconst=hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 90, in __init__
+    self._handle_constant(hasconst)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 139, in _handle_constant
+    raise MissingDataError("exog contains inf or nans")
+statsmodels.tools.sm_exceptions.MissingDataError: exog contains inf or nans
+2026-05-07 11:08:25,712 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,794 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:25,828 | ERROR | app.services.predictor | Failed to append SARIMAX forecast state; continuing with original model state
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 163, in _append_sarimax_state
+    return model.append(endog=endog, exog=exog_step, refit=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 4355, in append
+    mod = self.model.clone(new_endog, exog=new_exog, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 813, in clone
+    return self._clone_from_init_kwds(endog, exog=exog, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\mlemodel.py", line 296, in _clone_from_init_kwds
+    mod = self.__class__(endog, **use_kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\statespace\sarimax.py", line 328, in __init__
+    self._spec = SARIMAXSpecification(
+                 ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\arima\specification.py", line 446, in __init__
+    self._model = TimeSeriesModel(endog, exog=exog, dates=dates, freq=freq,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\tsa\base\tsa_model.py", line 470, in __init__
+    super().__init__(endog, exog, missing=missing, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 270, in __init__
+    super().__init__(endog, exog, **kwargs)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 95, in __init__
+    self.data = self._handle_data(endog, exog, missing, hasconst,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\model.py", line 135, in _handle_data
+    data = handle_data(endog, exog, missing, hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 694, in handle_data
+    return klass(endog, exog=exog, missing=missing, hasconst=hasconst, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 90, in __init__
+    self._handle_constant(hasconst)
+  File "C:\Users\sneha\AppData\Local\Programs\Python\Python311\Lib\site-packages\statsmodels\base\data.py", line 139, in _handle_constant
+    raise MissingDataError("exog contains inf or nans")
+statsmodels.tools.sm_exceptions.MissingDataError: exog contains inf or nans
+2026-05-07 11:08:25,837 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:25,867 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:25,867 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:08:25,867 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 200 OK"
+2026-05-07 11:08:25,867 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:25,867 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:25,867 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:25,867 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:39,427 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:39,427 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:39,428 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:39,428 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:41,447 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:41,447 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:41,447 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:43,436 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:43,436 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:43,438 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:43,438 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:43,438 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:43,444 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:43,446 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:43,448 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:43,453 | INFO | app.main | Application startup completed
+2026-05-07 11:08:44,940 | INFO | app.main | Application startup initiated
+2026-05-07 11:08:44,943 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:08:44,943 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:08:46,191 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:08:46,191 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:08:46,191 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:08:46,191 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:08:46,192 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:08:46,192 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:08:46,192 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:08:46,196 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:08:46,196 | INFO | app.main | Application startup completed
+2026-05-07 11:08:46,199 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:08:46,201 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:08:46,203 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:08:46,203 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,247 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:46,265 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,303 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:46,319 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,351 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:46,361 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,398 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:08:46,406 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,426 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:08:46,441 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:08:46,461 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:08:46,461 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:08:46,461 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 200 OK"
+2026-05-07 11:08:46,461 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:46,461 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:46,461 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:46,461 | INFO | app.main | Application shutdown completed
+2026-05-07 11:08:59,742 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:08:59,742 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:08:59,743 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:08:59,743 | INFO | app.main | Application shutdown completed
+2026-05-07 11:09:01,919 | INFO | app.main | Application startup initiated
+2026-05-07 11:09:01,919 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:09:01,919 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:09:03,873 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:09:03,873 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:09:03,876 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:09:03,876 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:09:03,877 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:09:03,881 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:09:03,881 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:09:03,884 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:09:03,885 | INFO | app.main | Application startup completed
+2026-05-07 11:09:04,622 | INFO | app.main | Application startup initiated
+2026-05-07 11:09:04,625 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:09:04,627 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:09:05,788 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:09:05,788 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:09:05,788 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:09:05,788 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:09:05,788 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:09:05,794 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:09:05,794 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:09:05,795 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:09:05,795 | INFO | app.main | Application startup completed
+2026-05-07 11:09:05,798 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:09:05,800 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:09:05,802 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:09:05,810 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:05,849 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:09:05,864 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:05,906 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:09:05,922 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:05,954 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:09:05,964 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:05,999 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:09:06,008 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:06,037 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:09:06,045 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:09:06,071 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:09:06,071 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:09:06,071 | INFO | httpx | HTTP Request: POST http://testserver/predictions?base_currency=USD&target_currency=INR&target_date=2026-05-10 "HTTP/1.1 200 OK"
+2026-05-07 11:09:06,074 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:09:06,074 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:09:06,074 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:09:06,075 | INFO | app.main | Application shutdown completed
+2026-05-07 11:32:29,237 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:32:29,297 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:32:29,331 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:32:29,435 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:29,562 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:32:29,619 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:29,720 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:32:29,753 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:29,853 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:32:29,896 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:30,054 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:32:30,072 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:30,184 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:32:30,202 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:32:30,332 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:32:30,338 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:39:33,608 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:39:33,608 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:39:33,608 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:39:33,611 | INFO | app.main | Application shutdown completed
+2026-05-07 11:39:37,183 | INFO | app.main | Application startup initiated
+2026-05-07 11:39:37,185 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:39:37,185 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:39:39,183 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:39:39,185 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:39:39,185 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:39:39,185 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:39:39,187 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:39:39,189 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:39:39,194 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:39:39,194 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:39:39,202 | INFO | app.main | Application startup completed
+2026-05-07 11:40:24,125 | INFO | app.main | Application shutdown initiated
+2026-05-07 11:40:24,127 | INFO | app.scheduler | Stopping scheduler
+2026-05-07 11:40:24,129 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-07 11:40:24,131 | INFO | app.main | Application shutdown completed
+2026-05-07 11:40:26,253 | INFO | app.main | Application startup initiated
+2026-05-07 11:40:26,253 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-07 11:40:26,253 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-07 11:40:27,602 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-07 11:40:27,611 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-07 11:40:27,611 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-07 11:40:27,611 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-07 11:40:27,611 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-07 11:40:27,616 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-07 11:40:27,618 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-07 11:40:27,618 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-07 11:40:27,619 | INFO | app.main | Application startup completed
+2026-05-07 11:41:02,858 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-10
+2026-05-07 11:41:02,866 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-07 11:41:02,881 | INFO | app.services.predictor | Predicting USD_INR for 3 days ahead
+2026-05-07 11:41:02,917 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,045 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:03,088 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,193 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:41:03,228 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,333 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:41:03,352 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,434 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:03,439 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,535 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:41:03,556 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:03,659 | INFO | app.services.feature_engineering | Feature engineering completed with 1303 rows
+2026-05-07 11:41:03,662 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-10', 'predictions': {'xgboost': 95.2159, 'sarimax': 94.6529}}
+2026-05-07 11:41:17,720 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-07
+2026-05-07 11:41:17,725 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:41:17,729 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-07 11:41:17,780 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:17,920 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:17,942 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:18,056 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:18,056 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-07', 'predictions': {'xgboost': 94.8507, 'sarimax': 94.7601}}
+2026-05-07 11:41:56,584 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-09
+2026-05-07 11:41:56,585 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:41:56,588 | INFO | app.services.predictor | Predicting USD_INR for 2 days ahead
+2026-05-07 11:41:56,636 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:56,769 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:56,817 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:56,942 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:41:56,960 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:57,065 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:41:57,080 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:41:57,192 | INFO | app.services.feature_engineering | Feature engineering completed with 1302 rows
+2026-05-07 11:41:57,192 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-09', 'predictions': {'xgboost': 95.2093, 'sarimax': 94.8475}}
+2026-05-07 11:45:59,143 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-07
+2026-05-07 11:45:59,151 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:45:59,156 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-07 11:45:59,211 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:45:59,343 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:45:59,375 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:45:59,493 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:45:59,493 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-07', 'predictions': {'xgboost': 94.8507, 'sarimax': 94.7601}}
+2026-05-07 11:56:43,503 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-07
+2026-05-07 11:56:43,523 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:56:43,529 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-07 11:56:43,601 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:56:43,680 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:56:43,700 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:56:43,748 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:56:43,750 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-07', 'predictions': {'xgboost': 94.8507, 'sarimax': 94.7601}}
+2026-05-07 11:57:31,388 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-06
+2026-05-07 11:57:31,393 | ERROR | app.api.routes | Prediction failed: target_date must be today or a future date in YYYY-MM-DD format
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 64, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 76, in predict
+    raise PredictionError("target_date must be today or a future date in YYYY-MM-DD format")
+app.services.predictor.PredictionError: target_date must be today or a future date in YYYY-MM-DD format
+2026-05-07 11:57:32,699 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-06
+2026-05-07 11:57:32,714 | ERROR | app.api.routes | Prediction failed: target_date must be today or a future date in YYYY-MM-DD format
+Traceback (most recent call last):
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\api\routes.py", line 64, in create_prediction
+    return predictor.predict(
+           ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sneha\Downloads\edx_currency_forecasting\app\services\predictor.py", line 76, in predict
+    raise PredictionError("target_date must be today or a future date in YYYY-MM-DD format")
+app.services.predictor.PredictionError: target_date must be today or a future date in YYYY-MM-DD format
+2026-05-07 11:57:41,791 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-07
+2026-05-07 11:57:41,792 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-07 11:57:41,793 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-07 11:57:41,813 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:57:41,864 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:57:41,876 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-07 11:57:41,971 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-07 11:57:41,975 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-07', 'predictions': {'xgboost': 94.8507, 'sarimax': 94.7601}}
+2026-05-08 12:03:48,236 | INFO | app.main | Application startup initiated
+2026-05-08 12:03:48,270 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-08 12:03:48,302 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-08 12:04:05,609 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-08 12:04:05,609 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-08 12:04:05,610 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-08 12:04:05,610 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-08 12:04:05,610 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-08 12:04:05,626 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-08 12:04:05,630 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-08 12:04:05,630 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-08 12:04:05,632 | INFO | app.main | Application startup completed
+2026-05-08 12:04:59,517 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-08
+2026-05-08 12:04:59,591 | INFO | app.services.cache_manager | Persistent cache expired for USD_INR
+2026-05-08 12:04:59,596 | INFO | app.services.cache_manager | Refreshing forex cache for USD_INR
+2026-05-08 12:04:59,596 | INFO | app.services.data_fetcher | Downloading forex data from Yahoo Finance: ticker=INR=X
+2026-05-08 12:05:07,008 | INFO | app.services.data_fetcher | Downloaded 1300 rows for INR=X through 2026-05-08
+2026-05-08 12:05:07,010 | INFO | app.services.preprocessor | Preprocessing forex dataset with 1300 rows
+2026-05-08 12:05:07,027 | INFO | app.services.preprocessor | Preprocessing completed with 1300 valid rows
+2026-05-08 12:05:07,027 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-08 12:05:07,181 | INFO | app.services.feature_engineering | Feature engineering completed with 1300 rows
+2026-05-08 12:05:07,189 | INFO | app.services.cache_manager | Persistent cache saved for USD_INR
+2026-05-08 12:05:07,189 | INFO | app.services.cache_manager | Cache refreshed for USD_INR with 1300 rows
+2026-05-08 12:05:07,196 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-08 12:05:07,246 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-08 12:05:07,351 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-08 12:05:07,387 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-08 12:05:07,500 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-08 12:05:07,503 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-08', 'predictions': {'xgboost': 94.5503, 'sarimax': 94.4623}}
+2026-05-08 13:38:14,862 | INFO | app.main | Application shutdown initiated
+2026-05-08 13:38:14,871 | INFO | app.scheduler | Stopping scheduler
+2026-05-08 13:38:14,880 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-08 13:38:14,889 | INFO | app.main | Application shutdown completed
