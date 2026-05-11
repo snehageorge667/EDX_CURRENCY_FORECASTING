@@ -918,3 +918,144 @@ app.services.predictor.PredictionError: target_date must be today or a future da
 2026-05-08 13:38:14,871 | INFO | app.scheduler | Stopping scheduler
 2026-05-08 13:38:14,880 | INFO | apscheduler.scheduler | Scheduler has been shut down
 2026-05-08 13:38:14,889 | INFO | app.main | Application shutdown completed
+2026-05-11 15:04:55,933 | INFO | app.main | Application startup initiated
+2026-05-11 15:04:55,934 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-11 15:04:55,935 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-11 15:04:57,943 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-11 15:04:57,943 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-11 15:04:57,944 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-11 15:04:57,945 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-11 15:04:57,946 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-11 15:04:57,965 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 15:04:57,966 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-11 15:04:57,967 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-11 15:04:57,968 | INFO | app.main | Application startup completed
+2026-05-11 15:05:53,191 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:05:53,216 | INFO | app.services.cache_manager | Persistent cache expired for USD_INR
+2026-05-11 15:05:53,220 | INFO | app.services.cache_manager | Refreshing forex cache for USD_INR
+2026-05-11 15:05:53,220 | INFO | app.services.data_fetcher | Downloading forex data from Yahoo Finance: ticker=INR=X
+2026-05-11 15:05:54,356 | INFO | app.services.data_fetcher | Downloaded 1300 rows for INR=X through 2026-05-11
+2026-05-11 15:05:54,357 | INFO | app.services.preprocessor | Preprocessing forex dataset with 1300 rows
+2026-05-11 15:05:54,365 | INFO | app.services.preprocessor | Preprocessing completed with 1300 valid rows
+2026-05-11 15:05:54,366 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:05:54,421 | INFO | app.services.feature_engineering | Feature engineering completed with 1300 rows
+2026-05-11 15:05:54,429 | INFO | app.services.cache_manager | Persistent cache saved for USD_INR
+2026-05-11 15:05:54,431 | INFO | app.services.cache_manager | Cache refreshed for USD_INR with 1300 rows
+2026-05-11 15:05:54,434 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:05:54,458 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:05:54,513 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:05:54,531 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:05:54,573 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:05:54,574 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:06:01,037 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:06:01,038 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:06:01,040 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:06:01,050 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:01,101 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:01,110 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:01,154 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:01,155 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:06:02,053 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:06:02,055 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:06:02,058 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:06:02,067 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:02,116 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:02,125 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:02,168 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:02,171 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:06:03,046 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:06:03,046 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:06:03,049 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:06:03,064 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:03,117 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:03,126 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:03,171 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:03,172 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:06:16,285 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:06:16,286 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:06:16,290 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:06:16,305 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:16,363 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:16,370 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:06:16,412 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:06:16,413 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:39:34,303 | INFO | app.main | Application startup initiated
+2026-05-11 15:39:34,304 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-11 15:39:34,305 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-11 15:39:36,465 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-11 15:39:36,466 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-11 15:39:36,468 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-11 15:39:36,468 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-11 15:39:36,469 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-11 15:39:36,476 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 15:39:36,477 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-11 15:39:36,480 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-11 15:39:36,483 | INFO | app.main | Application startup completed
+2026-05-11 15:40:42,651 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:40:42,713 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-11 15:40:42,737 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:40:42,780 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:40:42,837 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:40:42,856 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:40:42,900 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:40:42,900 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:40:46,273 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:40:46,273 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:40:46,275 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:40:46,287 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:40:46,338 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:40:46,348 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:40:46,392 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:40:46,393 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2406, 'sarimax': 95.3028}}
+2026-05-11 15:42:30,059 | INFO | app.main | Application shutdown initiated
+2026-05-11 15:42:30,061 | INFO | app.scheduler | Stopping scheduler
+2026-05-11 15:42:30,062 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-11 15:42:30,063 | INFO | app.main | Application shutdown completed
+2026-05-11 15:43:15,172 | INFO | app.main | Application startup initiated
+2026-05-11 15:43:15,173 | INFO | app.services.cache_manager | Cache manager initialized at C:\Users\sneha\Downloads\edx_currency_forecasting\app\cache
+2026-05-11 15:43:15,174 | INFO | app.services.predictor | Loading models from C:\Users\sneha\Downloads\edx_currency_forecasting\app\models
+2026-05-11 15:43:16,739 | INFO | app.services.predictor | XGBoost model unwrapped from payload with 76 features
+2026-05-11 15:43:16,739 | INFO | app.services.predictor | SARIMAX model unwrapped from payload with 5 features
+2026-05-11 15:43:16,740 | INFO | app.services.predictor | XGBoost feature contract validated
+2026-05-11 15:43:16,740 | INFO | app.services.predictor | Model loading completed successfully
+2026-05-11 15:43:16,741 | INFO | app.scheduler | Starting scheduler with 6 hour refresh interval
+2026-05-11 15:43:16,745 | INFO | apscheduler.scheduler | Adding job tentatively -- it will be properly scheduled when the scheduler starts
+2026-05-11 15:43:16,745 | INFO | apscheduler.scheduler | Added job "ForexRefreshScheduler.refresh_default_pairs" to job store "default"
+2026-05-11 15:43:16,747 | INFO | apscheduler.scheduler | Scheduler started
+2026-05-11 15:43:16,749 | INFO | app.main | Application startup completed
+2026-05-11 15:43:45,184 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:43:45,187 | INFO | app.services.cache_manager | Using persistent file cache for USD_INR
+2026-05-11 15:43:45,192 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:43:45,206 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:45,253 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:45,265 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:45,314 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:45,315 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2478, 'sarimax': 95.3028}}
+2026-05-11 15:43:49,641 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:43:49,644 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:43:49,645 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:43:49,658 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:49,706 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:49,714 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:49,763 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:49,764 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2478, 'sarimax': 95.3028}}
+2026-05-11 15:43:50,671 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:43:50,672 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:43:50,674 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:43:50,690 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:50,736 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:50,743 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:50,792 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:50,792 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2478, 'sarimax': 95.3028}}
+2026-05-11 15:43:53,059 | INFO | app.api.routes | API request received: base_currency=USD target_currency=INR target_date=2026-05-11
+2026-05-11 15:43:53,061 | INFO | app.services.cache_manager | Using in-memory cache for USD_INR
+2026-05-11 15:43:53,062 | INFO | app.services.predictor | Predicting USD_INR for 1 days ahead
+2026-05-11 15:43:53,074 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:53,125 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:53,135 | INFO | app.services.feature_engineering | Starting full XGBoost feature engineering
+2026-05-11 15:43:53,179 | INFO | app.services.feature_engineering | Feature engineering completed with 1301 rows
+2026-05-11 15:43:53,180 | INFO | app.services.predictor | Prediction completed: {'pair': 'USD_INR', 'target_date': '2026-05-11', 'predictions': {'xgboost': 95.2478, 'sarimax': 95.3028}}
+2026-05-11 15:51:07,730 | INFO | app.main | Application shutdown initiated
+2026-05-11 15:51:07,731 | INFO | app.scheduler | Stopping scheduler
+2026-05-11 15:51:07,731 | INFO | apscheduler.scheduler | Scheduler has been shut down
+2026-05-11 15:51:07,732 | INFO | app.main | Application shutdown completed
